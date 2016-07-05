@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="unithon.rucrazy">
+
+    <!-- SMS 부분 -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- GCM 부분 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="unithon.rucrazy.permission.C2D_MESSAGE" />
+    <permission android:name="unithon.rucrazy.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <application
+        android:name=".kakaologin.common.GlobalApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <data android:scheme="@string/kakao_scheme" android:host="@string/kakaolink_host" />
+            </intent-filter>
+        </activity>
+
+        <!-- Function Activity 부분 -->
+        <activity android:name="unithon.rucrazy.kakao.KAKAOActivity">
+            <data android:scheme="@string/kakao_scheme" android:host="@string/kakaolink_host" />
+        </activity>
+        <activity android:name="unithon.rucrazy.sms.SMSActivity" />
+        <activity android:name="unithon.rucrazy.sms.ShowSMSActivity" />
+        <activity android:name="unithon.rucrazy.gcm.GCMActivity" />
+
+        <!-- Kakao Login Activity 부분 -->
+        <activity android:name="unithon.rucrazy.kakaologin.LoginActivity" />
+        <activity android:name="unithon.rucrazy.kakaologin.sign.SignupActivity" />
+        <activity android:name="unithon.rucrazy.kakaologin.common.BaseActivity" />
+        <activity android:name="unithon.rucrazy.kakaologin.db.kakaoDBActivity" />
+
+        <!-- Service 부분 -->
+            <!-- GCM 부분 -->
+        <service
+            android:name="unithon.rucrazy.gcm.MyGcmListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+            <!-- GCM 부분 -->
+        <service
+            android:name="unithon.rucrazy.gcm.MyInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+
+        <!-- device의 고유 토큰을 설정하기 위함 -->
+            <!-- GCM 부분 -->
+        <service
+            android:name="unithon.rucrazy.gcm.RegistrationIntentService"
+            android:exported="false">
+        </service>
+
+        <!-- Receiver 부분 -->
+            <!-- SMS 부분 -->
+<!--
+        <receiver android:name ="unithon.rucrazy.sms.SMSBroadCast">
+            <intent-filter android:priority="9999">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+-->
+
+        <!-- GCM 부분 -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="unithon.rucrazy" />
+            </intent-filter>
+        </receiver>
+        <!-- kakao app key 등록 부분 -->
+        <meta-data android:name="com.kakao.sdk.AppKey" android:value="@string/kakao_app_key"/>
+    </application>
+</manifest>
