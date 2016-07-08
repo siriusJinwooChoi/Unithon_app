@@ -9,7 +9,7 @@ import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
 import com.kakao.util.KakaoParameterException;
 
 /**
- * Created by Jinwoo on 2016-02-13.
+ * Created by Jinwoo Choi on 2016-02-13.
  */
 public class KAKAOActivity extends Activity {
     //kakaAPI
@@ -28,7 +28,7 @@ public class KAKAOActivity extends Activity {
             kakaoTalkLinkMessageBuilder = kakaoLink.createKakaoTalkLinkMessageBuilder();
 
             //실제 메세지를 전송
-            kakaoTalkLinkMessageBuilder.addText("http://192.168.0.250:8080/index.html");
+            kakaoTalkLinkMessageBuilder.addText("http://YOUR IP Address:Your PORT NUMBER/index.html");
             kakaoLink.sendMessage(kakaoTalkLinkMessageBuilder, this);
             kakaoTalkLinkMessageBuilder = kakaoLink.createKakaoTalkLinkMessageBuilder();
 
